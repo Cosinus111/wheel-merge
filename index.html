@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src https://api.squeekchain.com https://ethereum-sepolia-rpc.publicnode.com; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Wheel Merge</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<canvas id="decor" aria-hidden="true"></canvas>
+<div class="app">
+<header class="panel topbar dots">
+<canvas id="title" width="420" height="68" aria-label="Wheel Merge"></canvas>
+<div class="live">
+<span class="label"><span class="status-dot" id="dot"></span><span id="state">…</span></span>
+<span class="label"><b id="rpm">—</b> rpm</span>
+<span class="label"><span data-i18n="block"></span> <b id="height">—</b></span>
+<div class="cells" id="prog" data-i18n-title="blockProgress"></div>
+</div>
+<select id="mode" data-i18n-aria="modeAria">
+<option value="live" data-i18n="modeLiveLong"></option>
+<option value="spin" data-i18n="modeSpinLong"></option>
+<option value="idle" data-i18n="modeIdleLong"></option>
+</select>
+</header>
+<aside class="side left">
+<section class="panel">
+<div class="hud">
+<div><span class="label" data-i18n="score"></span><span class="value big" id="score">0</span></div>
+<div><span class="label" data-i18n="best"></span><span class="value" id="best">0</span></div>
+<div><span class="label" data-i18n="maxLevel"></span><span class="value" id="maxlvl">1</span></div>
+</div>
+<div class="timer" id="timer">
+<span class="label" data-i18n="timer"></span>
+<span class="value" id="time">30.0</span>
+<div class="cells" id="timebar"></div>
+</div>
+</section>
+<section class="panel help">
+<span class="kicker" data-i18n="howTo"></span>
+<div id="helpList"></div>
+</section>
+</aside>
+<main class="panel stage dots">
+<div class="board-wrap">
+<canvas id="c" width="1040" height="1040"></canvas>
+<div id="over" hidden>
+<span class="kicker" id="overTitle"></span>
+<span class="value huge" id="overScore"></span>
+<span class="voice" id="resultText"></span>
+<label class="field">
+<span class="label" data-i18n="nicknameLabel"></span>
+<input id="pseudo" maxlength="16" autocomplete="off" spellcheck="false" data-i18n-placeholder="nickname">
+</label>
+<details id="review" open>
+<summary class="label" data-i18n="reviewTitle"></summary>
+<dl id="reviewList"></dl>
+<span class="note" data-i18n="reviewNote"></span>
+</details>
+<div class="row">
+<button class="btn primary" id="submit" data-i18n="submit"></button>
+<button class="btn" id="again" data-i18n="playAgain"></button>
+</div>
+<span id="txStatus" role="status"></span>
+</div>
+</div>
+<div class="controls">
+<button class="btn" id="left" data-i18n-aria="left">◀</button>
+<button class="btn primary" id="drop" data-i18n="drop"></button>
+<button class="btn" id="right" data-i18n-aria="right">▶</button>
+<button class="btn" id="restart" data-i18n-aria="restart">↻</button>
+</div>
+</main>
+<aside class="side right">
+<section class="panel">
+<span class="kicker" data-i18n="leaderboards"></span>
+<div class="tabs" id="modeTabs">
+<button class="btn" data-board-mode="live" data-i18n="modeLive"></button>
+<button class="btn" data-board-mode="spin" data-i18n="modeSpin"></button>
+<button class="btn" data-board-mode="idle" data-i18n="modeIdle"></button>
+</div>
+<div class="tabs" id="sourceTabs">
+<button class="btn" data-source="weekly" data-i18n="weekly"></button>
+<button class="btn" data-source="allTime" data-i18n="allTime"></button>
+<button class="btn" data-source="local" data-i18n="local"></button>
+</div>
+<div class="label" id="boardTitle"></div>
+<table><tbody id="lb"></tbody></table>
+</section>
+</aside>
+</div>
+<script type="module" src="decor.js"></script>
+<script type="module" src="game.js"></script>
+</body>
+</html>
